@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<html>
+    <title>Exercício </title>
+    <body>               
+        <form method="post" action="receber-form.php"> 
+            Saque:<br><br>
+            Selecione a conta que deseja realizar o saque:<br><br>
+
+            Poupança<input type="radio" name="opcao" value="poupança"> 
+            Corrente<input type="radio" name="opcao" value="corrente"><br><br>
+
+            <input type="number" name="valor_saque" placeholder="Digite o valor do saque">
+            <input type="submit" name="sacar_valor" value="Sacar"><br><br>
+            <input type="hidden" name="operacao" value="saque">
+            <input type="button" value="Voltar ao menu anterior" onclick="history.go(-1)"></input>
+        </form>
+    </body>
+</html>

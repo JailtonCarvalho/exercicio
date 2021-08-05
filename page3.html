@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<html>
+    <title>Exercício </title>
+    <body>               
+        <form method="post" action="receber-form.php">
+            Depósito:<br><br>
+            Selecione a conta que deseja realizar o depósito:<br><br>
+
+            Poupança<input type="radio" name="opcao" value="poupança"> 
+            Corrente<input type="radio" name="opcao" value="corrente"><br><br>
+
+            <input type="number" name="valor_deposito" placeholder="Digite o valor do depósito">
+            <input type="submit" name="depositar_valor" value="Depositar"><br><br>
+            <input type="hidden" name="operacao" value="deposito">
+            <input type="button" value="Voltar ao menu anterior" onclick="history.go(-1)"></input>
+        </form>
+    </body>
+</html>
