@@ -58,6 +58,5 @@ switch ($operacao) {
     } else {
         echo "selecione o tipo de conta";
     }
-    //teste
 
 ?>
