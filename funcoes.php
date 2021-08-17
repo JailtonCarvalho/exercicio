@@ -67,16 +67,19 @@ function pegaValor($operacao)
             break;
     }
 }
-function executarOperacao($opcao, $operacao, $valor, $saldo_poupanca, $saldo_corrente)
+function executarOperacao($opcao, $operacao, $valor, $saldo)
 {
     // Informações para operação em conta poupança.
     if ($opcao == "poupança") {
         switch ($operacao) {
             case 'deposito':
-                depositar($valor, $saldo_poupanca, $opcao);
+                depositar($valor, $saldo, $opcao);
                 break;
             case 'saque':
-                sacar($saldo_poupanca, $valor, $opcao);
+                sacar($saldo, $valor, $opcao);
+                break;
+            case 'saldo':
+                exibirSaldo($saldo);
                 break;
             default:
                 throw new Exception("Error Processing Request", 1);
@@ -87,10 +90,13 @@ function executarOperacao($opcao, $operacao, $valor, $saldo_poupanca, $saldo_cor
     } elseif ($opcao == "corrente") {
         switch ($operacao) {
             case 'deposito':
-                depositar($valor, $saldo_corrente, $opcao);
+                depositar($valor, $saldo, $opcao);
                 break;
             case 'saque':
-                sacar($saldo_corrente, $valor, $opcao);
+                sacar($saldo, $valor, $opcao);
+                break;
+            case 'saldo':
+                exibirSaldo($saldo);
                 break;
             default:
                 throw new Exception("Error Processing Request", 1);
@@ -103,15 +109,36 @@ function executarOperacao($opcao, $operacao, $valor, $saldo_poupanca, $saldo_cor
 
 function app()
 {
-    //pegar variáveis necessárias
+    //pegar variáveis necessárias e validar
+    if (empty($_POST['opcao'])) {
+        die('Opção é obrigatório');
+    }
+    if (empty($_POST['operacao'])) {
+        die('Operação é obrigatório');
+    }
     $opcao = $_POST['opcao'];
     $operacao = $_POST['operacao'];
-    $saldo_corrente = lerSaldoContaCorrente();
-    $saldo_poupanca = lerSaldoContaPoupanca();
+    if ($opcao == 'corrente'){
+        $saldo = lerSaldoContaCorrente();
+    }else if($opcao == 'poupança'){
+        $saldo = lerSaldoContaPoupanca();
+    }else{
+        echo "opção inválida";
+        die;
+    }
+    
     //pegar valor por operação
-    $valor = pegaValor($operacao);
+    if(($operacao == 'saque')||($operacao == 'deposito')){
+        $valor = pegaValor($operacao);
+    }else{
+        $valor = null;
+    }
     //direcionar a operação conforme a opção
-    executarOperacao($opcao, $operacao, $valor, $saldo_poupanca, $saldo_corrente);
+    executarOperacao($opcao, $operacao, $valor, $saldo);
 }
 
-?>
+
+function exibirSaldo($saldo)
+{
+    echo "Seu saldo é de:  $saldo";
+}

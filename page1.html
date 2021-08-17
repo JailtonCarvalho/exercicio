@@ -2,9 +2,15 @@
 <html>
     <title>Exercício </title>
     <body>               
-        <form>
+        <form method="post" action="receber-form.php">
             Saldo:<br><br>
-                
+            Selecione a conta que deseja visualisar o saldo:<br><br>
+
+            Poupança<input type="radio" name="opcao" value="poupança"> 
+            Corrente<input type="radio" name="opcao" value="corrente"><br><br>
+
+            <input type="submit" name="verSaldo" value="ver saldo"><br><br>
+            <input type="hidden" name="operacao" value="saldo">   
             <input type="button" value="Voltar ao menu anterior" onclick="history.go(-1)"></input>
         </form>
     </body>
